@@ -1,23 +1,23 @@
-import { useState, useRef, useEffect } from 'react'
+﻿import { useState, useRef, useEffect } from 'react'
 import { gsap } from 'gsap'
 import WorkDetail from './WorkDetail'
 import WorksCarousel from './WorksCarousel'
 
 const works = [
-  { id: 1, title: 'APP 设计', cat: 'APP DESIGN', year: '2026', bg: '#1a0505', img: '/work-1.png', mockup: '/mockup.png', tags: ['页面落地', 'UI图标', '界面规范'],
+  { id: 1, title: 'APP 璁捐', cat: 'APP DESIGN', year: '2026', bg: '#1a0505', img: '/work-1.jpg', mockup: '/mockup.png', tags: ['椤甸潰钀藉湴', 'UI鍥炬爣', '鐣岄潰瑙勮寖'],
     screens: [
-      { label: '国际市场', bg: '#6b1a1a' },
+      { label: '鍥介檯甯傚満', bg: '#6b1a1a' },
       { label: 'Beijing China', bg: '#2a1a0a' },
       { label: 'Mount Fuji', bg: '#0a1a2a' },
-      { label: 'London · Andes', bg: '#1a1a2a' },
+      { label: 'London 路 Andes', bg: '#1a1a2a' },
       { label: 'Ao Nang Thailand', bg: '#0a2a1a' },
       { label: 'Standard Ticket', bg: '#1a0a0a' },
-      { label: 'Rome · Tokyo', bg: '#0a0a1a' },
+      { label: 'Rome 路 Tokyo', bg: '#0a0a1a' },
     ]
   },
-  { id: 2, title: '品牌设计', cat: 'BRAND DESIGN', year: '2025', bg: '#0a0a14', img: '/work-2.png', mockup: '/brand-mockup.png', tags: ['品牌Logo', '品牌延展', '品牌规范'] },
-  { id: 3, title: '活动宣传设计', cat: 'PUBLICITY DESIGN', year: '2025', bg: '#0a0d0a', tags: ['H5设计', '海报设计', '场景建模'] },
-  { id: 4, title: 'IP 设计', cat: 'IP DESIGN', year: '2025', bg: '#0f0a0f', img: '/ip-design.png', mockup: '/ip-mockup.png', tags: ['形象设计', '营销海报', '人物周边'] },
+  { id: 2, title: '鍝佺墝璁捐', cat: 'BRAND DESIGN', year: '2025', bg: '#0a0a14', img: '/work-2.jpg', mockup: '/brand-mockup.png', tags: ['鍝佺墝Logo', '鍝佺墝寤跺睍', '鍝佺墝瑙勮寖'] },
+  { id: 3, title: '娲诲姩瀹ｄ紶璁捐', cat: 'PUBLICITY DESIGN', year: '2025', bg: '#0a0d0a', tags: ['H5璁捐', '娴锋姤璁捐', '鍦烘櫙寤烘ā'] },
+  { id: 4, title: 'IP 璁捐', cat: 'IP DESIGN', year: '2025', bg: '#0f0a0f', img: '/ip-design.png', mockup: '/ip-mockup.png', tags: ['褰㈣薄璁捐', '钀ラ攢娴锋姤', '浜虹墿鍛ㄨ竟'] },
 ]
 
 function WorkCard({ work, onClick, delay }) {
@@ -92,13 +92,13 @@ function WorkCard({ work, onClick, delay }) {
           display: 'flex', flexDirection: 'column', justifyContent: 'flex-end',
           padding: '1.4rem',
         }}>
-          <p className="meta" style={{ marginBottom: '0.3rem' }}>{work.cat} — {work.year}</p>
+<p className="meta" style={{ marginBottom: '0.3rem' }}>{work.cat} · {work.year}</p>
           <p style={{ fontFamily: 'var(--font-serif)', fontSize: '1.1rem', fontWeight: 700 }}>{work.title}</p>
-          <p className="meta" style={{ marginTop: '0.5rem', color: 'rgba(255,255,255,0.4)' }}>点击查看详情 →</p>
+<p className="meta" style={{ marginTop: '0.5rem', color: 'rgba(255,255,255,0.4)' }}>点击查看详情 →</p>
         </div>
       </div>
 
-      {/* Floating mockup — only for APP design card */}
+      {/* Floating mockup only for APP design card */}
       {work.mockup && (
         <img ref={mockupRef} src={work.mockup} alt="mockup" style={{
           position: 'absolute', left: '50%', top: '10%',
@@ -171,3 +171,5 @@ export default function Works() {
     </>
   )
 }
+
+
