@@ -1,0 +1,26 @@
+﻿.beams-container {
+  position: absolute !important;
+  inset: 0;
+  width: 100% !important;
+  height: 100% !important;
+  pointer-events: none;
+}
+
+.works-beams-backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: #000;
+  overflow: hidden;
+}
+
+.works-beams-backdrop::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 72% 62% at 50% 54%, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.02) 38%, transparent 66%),
+    radial-gradient(ellipse 90% 86% at 50% 50%, transparent 35%, rgba(0,0,0,0.72) 82%, rgba(0,0,0,0.94) 100%),
+    linear-gradient(90deg, rgba(0,0,0,0.72) 0%, transparent 28%, transparent 72%, rgba(0,0,0,0.72) 100%);
+}
