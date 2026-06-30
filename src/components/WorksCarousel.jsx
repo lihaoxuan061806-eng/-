@@ -36,7 +36,7 @@ function LHXCenter() {
         <Text3D font="/helvetiker_bold.typeface.json" size={0.82} height={0.22}
           bevelEnabled bevelThickness={0.01} bevelSize={0.008} bevelSegments={3}>
           LHX
-          <meshStandardMaterial color="#b0b0b0" metalness={1} roughness={0.05} envMapIntensity={2} />
+          <meshStandardMaterial color="#f2f2f2" metalness={0.35} roughness={0.28} emissive="#555555" emissiveIntensity={0.45} />
         </Text3D>
       </Center>
     </group>
@@ -332,9 +332,10 @@ export default function WorksCarousel({ activeIdx, onSelect, onPhaseChange }) {
       {phase >= 1 && (
         <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', zIndex: 1, opacity: 1, transition: 'opacity 1s ease' }}>
           <Canvas camera={{ position: [0, 0, 5], fov: 45 }}>
-            <ambientLight intensity={0.4} />
-            <directionalLight position={[5, 5, 5]} intensity={1.5} />
-            <pointLight position={[0, 2, 2]} intensity={1} />
+            <ambientLight intensity={1.35} />
+            <directionalLight position={[0, 3, 6]} intensity={3.2} />
+            <directionalLight position={[-4, 2, 4]} intensity={1.6} color="#ffffff" />
+            <pointLight position={[0, 1.2, 3.5]} intensity={2.2} distance={8} />
             <LHXCenter />
           </Canvas>
         </div>
@@ -405,6 +406,7 @@ export default function WorksCarousel({ activeIdx, onSelect, onPhaseChange }) {
     </div>
   )
 }
+
 
 
 

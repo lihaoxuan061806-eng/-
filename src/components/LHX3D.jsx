@@ -21,10 +21,11 @@ function LHXText() {
       >
         LHX
         <meshStandardMaterial
-          color="#b0b0b0"
-          metalness={1}
-          roughness={0.05}
-          envMapIntensity={2}
+          color="#f2f2f2"
+          metalness={0.35}
+          roughness={0.28}
+          emissive="#555555"
+          emissiveIntensity={0.45}
         />
       </Text3D>
     </Center>
@@ -35,13 +36,14 @@ export default function LHX3D() {
   return (
     <div style={{ width: '100%', height: '100%', position: 'absolute', inset: 0 }}>
       <Canvas camera={{ position: [0, 0, 7], fov: 45 }}>
-        <ambientLight intensity={0.4} />
-        <directionalLight position={[5, 5, 5]} intensity={2} />
-        <directionalLight position={[-5, -3, -5]} intensity={0.8} color="#aaaaff" />
-        <pointLight position={[0, 3, 3]} intensity={1.5} />
+        <ambientLight intensity={1.35} />
+        <directionalLight position={[0, 3, 7]} intensity={3.2} />
+        <directionalLight position={[-5, 2, 4]} intensity={1.6} color="#ffffff" />
+        <pointLight position={[0, 1.5, 4]} intensity={2.2} distance={10} />
         <LHXText />
       </Canvas>
     </div>
   )
 }
+
 
