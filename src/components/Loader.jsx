@@ -78,7 +78,7 @@ export default function Loader({ onDone }) {
       <div style={{ position: 'relative', zIndex: 1 }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', gap: '2rem', marginBottom: '1.1rem' }}>
           <div ref={logoRef} style={{
-            fontFamily: 'var(--font-serif)', fontSize: 'clamp(2.2rem, 7vw, 6.5rem)',
+            fontFamily: "Georgia, 'Times New Roman', 'Songti SC', 'STSong', serif", fontSize: 'clamp(2.2rem, 7vw, 6.5rem)',
             fontWeight: 900, lineHeight: 0.86, letterSpacing: '0.08em', color: '#fff',
           }}>
             LHX
