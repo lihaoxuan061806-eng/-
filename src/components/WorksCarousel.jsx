@@ -5,6 +5,7 @@ import * as THREE from 'three'
 import { gsap } from 'gsap'
 import WorkDetail from './WorkDetail'
 import Beams from './Beams'
+import LocalChromeMaterial from './LocalChromeMaterial'
 
 const works = [
   { id: 1, title: 'APP 设计', cat: 'APP DESIGN', year: '2026', bg: '#1a0505', img: '/work-1.jpg', mockup: '/mockup.png', tags: ['页面落地', 'UI图标', '界面规范'],
@@ -36,7 +37,7 @@ function LHXCenter() {
         <Text3D font="/helvetiker_bold.typeface.json" size={0.82} height={0.22}
           bevelEnabled bevelThickness={0.01} bevelSize={0.008} bevelSegments={3}>
           LHX
-          <meshStandardMaterial color="#f2f2f2" metalness={0.35} roughness={0.28} emissive="#555555" emissiveIntensity={0.45} />
+          <LocalChromeMaterial />
         </Text3D>
       </Center>
     </group>
@@ -239,9 +240,17 @@ export default function WorksCarousel({ activeIdx, onSelect, onPhaseChange }) {
       }
       if (progress > 0.94) {
         ctx.globalAlpha = Math.min((progress - 0.94) / 0.06, 1)
-        ctx.shadowColor = 'rgba(255,255,255,0.45)'
-        ctx.shadowBlur = 28
-        ctx.fillStyle = 'rgba(255,255,255,0.92)'
+        ctx.shadowColor = 'rgba(255,255,255,0.36)'
+        ctx.shadowBlur = 24
+        const metalFill = ctx.createLinearGradient(originX, originY, originX + 584 * scale, originY + 180 * scale)
+        metalFill.addColorStop(0, '#f7f8f8')
+        metalFill.addColorStop(0.18, '#8c9196')
+        metalFill.addColorStop(0.34, '#f1f3f4')
+        metalFill.addColorStop(0.5, '#32363b')
+        metalFill.addColorStop(0.68, '#dfe3e6')
+        metalFill.addColorStop(0.86, '#777d83')
+        metalFill.addColorStop(1, '#f7f8f8')
+        ctx.fillStyle = metalFill
         letterPaths.forEach(fillFullPath)
       }
       ctx.restore()
@@ -332,10 +341,10 @@ export default function WorksCarousel({ activeIdx, onSelect, onPhaseChange }) {
       {phase >= 1 && (
         <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', zIndex: 1, opacity: 1, transition: 'opacity 1s ease' }}>
           <Canvas camera={{ position: [0, 0, 5], fov: 45 }}>
-            <ambientLight intensity={1.35} />
-            <directionalLight position={[0, 3, 6]} intensity={3.2} />
-            <directionalLight position={[-4, 2, 4]} intensity={1.6} color="#ffffff" />
-            <pointLight position={[0, 1.2, 3.5]} intensity={2.2} distance={8} />
+            <ambientLight intensity={0.75} />
+            <directionalLight position={[0, 3, 6]} intensity={1.6} />
+            <directionalLight position={[-4, 2, 4]} intensity={0.8} color="#ffffff" />
+            <pointLight position={[0, 1.2, 3.5]} intensity={1.1} distance={8} />
             <LHXCenter />
           </Canvas>
         </div>
@@ -406,6 +415,8 @@ export default function WorksCarousel({ activeIdx, onSelect, onPhaseChange }) {
     </div>
   )
 }
+
+
 
 
 

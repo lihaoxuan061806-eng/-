@@ -1,6 +1,7 @@
 ﻿import { useRef } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
 import { Text3D, Center } from '@react-three/drei'
+import LocalChromeMaterial from './LocalChromeMaterial'
 
 function LHXText() {
   const meshRef = useRef()
@@ -20,13 +21,7 @@ function LHXText() {
         bevelSegments={8}
       >
         LHX
-        <meshStandardMaterial
-          color="#f2f2f2"
-          metalness={0.35}
-          roughness={0.28}
-          emissive="#555555"
-          emissiveIntensity={0.45}
-        />
+        <LocalChromeMaterial />
       </Text3D>
     </Center>
   )
@@ -36,14 +31,15 @@ export default function LHX3D() {
   return (
     <div style={{ width: '100%', height: '100%', position: 'absolute', inset: 0 }}>
       <Canvas camera={{ position: [0, 0, 7], fov: 45 }}>
-        <ambientLight intensity={1.35} />
-        <directionalLight position={[0, 3, 7]} intensity={3.2} />
-        <directionalLight position={[-5, 2, 4]} intensity={1.6} color="#ffffff" />
-        <pointLight position={[0, 1.5, 4]} intensity={2.2} distance={10} />
+        <ambientLight intensity={0.75} />
+        <directionalLight position={[0, 3, 7]} intensity={1.6} />
+        <directionalLight position={[-5, 2, 4]} intensity={0.8} color="#ffffff" />
+        <pointLight position={[0, 1.5, 4]} intensity={1.1} distance={10} />
         <LHXText />
       </Canvas>
     </div>
   )
 }
+
 
 
