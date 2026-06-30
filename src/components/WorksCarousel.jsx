@@ -1,6 +1,6 @@
 ﻿import { useRef, useState, useEffect } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
-import { Text3D, Center, Environment } from '@react-three/drei'
+import { Text3D, Center } from '@react-three/drei'
 import * as THREE from 'three'
 import { gsap } from 'gsap'
 import WorkDetail from './WorkDetail'
@@ -335,7 +335,6 @@ export default function WorksCarousel({ activeIdx, onSelect, onPhaseChange }) {
             <ambientLight intensity={0.4} />
             <directionalLight position={[5, 5, 5]} intensity={1.5} />
             <pointLight position={[0, 2, 2]} intensity={1} />
-            <Environment preset="city" />
             <LHXCenter />
           </Canvas>
         </div>
@@ -406,6 +405,7 @@ export default function WorksCarousel({ activeIdx, onSelect, onPhaseChange }) {
     </div>
   )
 }
+
 
 
 

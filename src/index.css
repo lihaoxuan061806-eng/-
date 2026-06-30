@@ -1,12 +1,12 @@
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+﻿*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
   --black: #000;
   --white: #fff;
   --gray: #555;
   --gray-light: #999;
-  --font-sans: 'DM Sans', sans-serif;
-  --font-serif: 'Playfair Display', serif;
+  --font-sans: 'Microsoft YaHei', 'PingFang SC', 'Noto Sans SC', system-ui, sans-serif;
+  --font-serif: 'Songti SC', 'STSong', 'SimSun', 'Times New Roman', serif;
 }
 
 html, body {
@@ -328,3 +328,4 @@ nav ul li a:hover::after { width: 100%; }
   color: var(--white);
   transform: translateX(4px);
 }
+

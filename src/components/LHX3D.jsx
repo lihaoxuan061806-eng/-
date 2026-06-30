@@ -1,6 +1,6 @@
-import { useRef } from 'react'
+﻿import { useRef } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
-import { Text3D, Center, Environment } from '@react-three/drei'
+import { Text3D, Center } from '@react-three/drei'
 
 function LHXText() {
   const meshRef = useRef()
@@ -39,9 +39,9 @@ export default function LHX3D() {
         <directionalLight position={[5, 5, 5]} intensity={2} />
         <directionalLight position={[-5, -3, -5]} intensity={0.8} color="#aaaaff" />
         <pointLight position={[0, 3, 3]} intensity={1.5} />
-        <Environment preset="city" />
         <LHXText />
       </Canvas>
     </div>
   )
 }
+
