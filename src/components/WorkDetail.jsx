@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+﻿import { useEffect, useRef } from 'react'
 import { createPortal } from 'react-dom'
 import { gsap } from 'gsap'
 
@@ -74,8 +74,8 @@ export default function WorkDetail({ work, onClose }) {
           onMouseEnter={e => gsap.to(e.currentTarget.querySelector('img, div'), { y: -12, scale: 1.03, duration: 0.5, ease: 'power2.out' })}
           onMouseLeave={e => gsap.to(e.currentTarget.querySelector('img, div'), { y: 0, scale: 1, duration: 0.5, ease: 'power2.out' })}
         >
-          {work.img
-            ? <img src={work.img} alt={work.title} style={{ width: '100%', height: 'auto', display: 'block' }} />
+          {work.detailImg || work.img
+            ? <img src={work.detailImg || work.img} alt={work.title} style={{ width: '100%', height: 'auto', display: 'block' }} />
             : <div style={{
                 width: '100%', aspectRatio: '16/9', background: work.bg,
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
@@ -110,3 +110,4 @@ export default function WorkDetail({ work, onClose }) {
     </div>
   , document.body)
 }
+

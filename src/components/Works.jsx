@@ -20,6 +20,8 @@ const works = [
   { id: 4, title: 'IP 璁捐', cat: 'IP DESIGN', year: '2025', bg: '#0f0a0f', img: '/ip-design.png', mockup: '/ip-mockup.png', tags: ['褰㈣薄璁捐', '钀ラ攢娴锋姤', '浜虹墿鍛ㄨ竟'] },
 ]
 
+const WORK_COUNT = 5
+
 function WorkCard({ work, onClick, delay }) {
   const cardRef = useRef()
   const imgRef = useRef()
@@ -134,9 +136,9 @@ export default function Works() {
           cooldown.current = true
           setTimeout(() => { cooldown.current = false }, 700)
           setActiveIdx(i => {
-            const next = (i + (e.deltaY > 0 ? 1 : -1) + 4) % 4
+            const next = (i + (e.deltaY > 0 ? 1 : -1) + WORK_COUNT) % WORK_COUNT
             seenSet.current.add(next)
-            if (seenSet.current.size >= 4) seenAll.current = true
+            if (seenSet.current.size >= WORK_COUNT) seenAll.current = true
             return next
           })
         }
@@ -171,5 +173,6 @@ export default function Works() {
     </>
   )
 }
+
 
 

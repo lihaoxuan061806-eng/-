@@ -22,6 +22,7 @@ const works = [
   { id: 2, title: '品牌设计', cat: 'BRAND DESIGN', year: '2025', bg: '#0a0a14', img: '/work-2.jpg', mockup: '/brand-mockup.png', tags: ['品牌Logo', '品牌延展', '品牌规范'] },
   { id: 3, title: '活动宣传设计', cat: 'PUBLICITY DESIGN', year: '2025', bg: '#0a0d0a', img: '/h5-publicity.png', mockup: '/h5-publicity-mockup.png', tags: ['H5设计', '海报设计', '场景建模'] },
   { id: 4, title: 'IP 设计', cat: 'IP DESIGN', year: '2025', bg: '#0f0a0f', img: '/ip-design.png', mockup: '/ip-mockup.png', tags: ['形象设计', '营销海报', '人物周边'] },
+  { id: 5, title: '车载设计', cat: 'HMI DESIGN', year: '2026', bg: '#080b10', img: '/vehicle-design-thumb.jpg', detailImg: '/vehicle-design.jpg', tags: ['车载HMI', '界面设计', '设计概念'] },
 ]
 
 const N = works.length
@@ -415,6 +416,7 @@ export default function WorksCarousel({ activeIdx, onSelect, onPhaseChange }) {
     </div>
   )
 }
+
 
 
 
