@@ -120,29 +120,18 @@ export default function Works() {
   const titleRef = useRef()
   const heroRef = useRef()
   const cooldown = useRef(false)
-  const seenAll = useRef(false)
-  const seenSet = useRef(new Set([0]))
 
   useEffect(() => {
     const onWheel = (e) => {
-      if (carouselPhase < 2) return
-      if (heroRef.current) {
-        const rect = heroRef.current.getBoundingClientRect()
-        if (rect.bottom <= 0) return
-        if (rect.top >= 0) {
-          if (seenAll.current && e.deltaY > 0) return
-          e.preventDefault()
-          if (cooldown.current) return
-          cooldown.current = true
-          setTimeout(() => { cooldown.current = false }, 700)
-          setActiveIdx(i => {
-            const next = (i + (e.deltaY > 0 ? 1 : -1) + WORK_COUNT) % WORK_COUNT
-            seenSet.current.add(next)
-            if (seenSet.current.size >= WORK_COUNT) seenAll.current = true
-            return next
-          })
-        }
-      }
+      if (carouselPhase < 2 || e.deltaY === 0 || !heroRef.current) return
+      const rect = heroRef.current.getBoundingClientRect()
+      if (rect.bottom <= 0 || rect.top >= window.innerHeight) return
+      e.preventDefault()
+      if (cooldown.current) return
+      cooldown.current = true
+      setTimeout(() => { cooldown.current = false }, 700)
+      const direction = e.deltaY > 0 ? 1 : -1
+      setActiveIdx(i => (i + direction + WORK_COUNT) % WORK_COUNT)
     }
     window.addEventListener('wheel', onWheel, { passive: false })
     return () => window.removeEventListener('wheel', onWheel)
@@ -173,6 +162,7 @@ export default function Works() {
     </>
   )
 }
+
 
 
 
