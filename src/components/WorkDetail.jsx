@@ -6,8 +6,6 @@ function ScreenCard({ src, index }) {
   const ref = useRef()
   return (
     <div ref={ref}
-      onMouseEnter={() => gsap.to(ref.current, { y: -14, scale: 1.04, duration: 0.4, ease: 'power2.out' })}
-      onMouseLeave={() => gsap.to(ref.current, { y: 0, scale: 1, duration: 0.4, ease: 'power2.out' })}
       style={{ borderRadius: '8px', overflow: 'hidden', cursor: 'none', border: '1px solid rgba(255,255,255,0.08)' }}
     >
       <img src={src} alt={`screen-${index}`} style={{ width: '100%', height: 'auto', display: 'block' }} />
@@ -70,10 +68,7 @@ export default function WorkDetail({ work, onClose }) {
       </div>
 
       <div style={{ padding: '6vh 8vw 10vh', maxWidth: '1100px', margin: '0 auto' }}>
-        <div ref={imgRef} style={{ overflow: 'hidden', borderRadius: '8px' }}
-          onMouseEnter={e => gsap.to(e.currentTarget.querySelector('img, div'), { y: -12, scale: 1.03, duration: 0.5, ease: 'power2.out' })}
-          onMouseLeave={e => gsap.to(e.currentTarget.querySelector('img, div'), { y: 0, scale: 1, duration: 0.5, ease: 'power2.out' })}
-        >
+        <div ref={imgRef} style={{ overflow: 'hidden', borderRadius: '8px' }}>
           {work.detailImg || work.img
             ? <img src={work.detailImg || work.img} alt={work.title} style={{ width: '100%', height: 'auto', display: 'block' }} />
             : <div style={{
