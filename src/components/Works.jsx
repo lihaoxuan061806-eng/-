@@ -20,7 +20,7 @@ const works = [
   { id: 4, title: 'IP 璁捐', cat: 'IP DESIGN', year: '2025', bg: '#0f0a0f', img: '/ip-design.png', mockup: '/ip-mockup.png', tags: ['褰㈣薄璁捐', '钀ラ攢娴锋姤', '浜虹墿鍛ㄨ竟'] },
 ]
 
-const WORK_COUNT = 5
+const WORK_COUNT = 6
 
 function WorkCard({ work, onClick, delay }) {
   const cardRef = useRef()
