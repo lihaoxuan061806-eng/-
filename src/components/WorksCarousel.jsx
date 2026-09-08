@@ -23,7 +23,7 @@ const works = [
   { id: 3, title: '活动宣传设计', cat: 'PUBLICITY DESIGN', year: '2025', bg: '#0a0d0a', img: '/h5-publicity.png', mockup: '/h5-publicity-mockup.png', tags: ['H5设计', '海报设计', '场景建模'] },
   { id: 4, title: 'IP 设计', cat: 'IP DESIGN', year: '2025', bg: '#0f0a0f', img: '/ip-design.png', mockup: '/ip-mockup.png', tags: ['形象设计', '营销海报', '人物周边'] },
   { id: 5, title: '车载设计', cat: 'HMI DESIGN', year: '2026', bg: '#080b10', img: '/vehicle-design-thumb.jpg', mockup: '/vehicle-popup.png', detailImg: '/vehicle-design.jpg', tags: ['车载HMI', '界面设计', '设计概念'] },
-  { id: 6, title: 'B端设计', cat: 'B-END DESIGN', year: '2026', bg: '#081014', img: '/b-end-design-thumb.jpg', detailImg: '/b-end-design.jpg', tags: ['B端产品', '企业服务', '界面设计'] },
+  { id: 6, title: 'B端设计', cat: 'B-END DESIGN', year: '2026', bg: '#081014', img: '/b-end-design-thumb.jpg', mockup: '/b-end-popup.png', detailImg: '/b-end-design.jpg', tags: ['B端产品', '企业服务', '界面设计'] },
 ]
 
 const N = works.length
@@ -64,7 +64,7 @@ function WorkPanel({ w, i, activeIdx, onOpen }) {
   const panelRef = useRef()
   const isActive = i === activeIdx
   const { x, z, ry, scale, opacity } = getCardStyle(i, activeIdx)
-  const mockupWidth = w.id === 3 ? '88%' : w.id === 5 ? '38%' : '55%'
+  const mockupWidth = w.id === 3 ? '88%' : [5, 6].includes(w.id) ? '38%' : '55%'
   const activePanelShadow = '0 26px 120px rgba(0,0,0,0.82), 0 0 120px rgba(255,255,255,0.18), 0 0 44px rgba(255,255,255,0.14), inset 0 1.5px 0 rgba(255,255,255,0.5), inset 0 -1px 0 rgba(255,255,255,0.1)'
   const hoverPanelShadow = '0 42px 190px rgba(0,0,0,0.96), 0 22px 90px rgba(0,0,0,0.86), 0 0 150px rgba(255,255,255,0.24), 0 0 0 1px rgba(255,255,255,0.2), inset 0 2px 0 rgba(255,255,255,0.58), inset 0 -18px 50px rgba(0,0,0,0.72)'
   const inactivePanelShadow = '0 0 30px rgba(255,255,255,0.06), inset 0 1px 0 rgba(255,255,255,0.25)'
