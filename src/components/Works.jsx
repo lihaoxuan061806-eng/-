@@ -119,6 +119,27 @@ export default function Works() {
   const [carouselPhase, setCarouselPhase] = useState(0)
   const titleRef = useRef()
   const heroRef = useRef()
+  const cooldown = useRef(false)
+
+  useEffect(() => {
+    const onWheel = (e) => {
+      if (carouselPhase < 2 || e.deltaY === 0 || !heroRef.current) return
+      const rect = heroRef.current.getBoundingClientRect()
+      if (rect.bottom <= 0 || rect.top >= window.innerHeight) return
+
+      e.preventDefault()
+      if (cooldown.current) return
+
+      cooldown.current = true
+      window.setTimeout(() => { cooldown.current = false }, 700)
+      const direction = e.deltaY > 0 ? 1 : -1
+      setActiveIdx(i => (i + direction + WORK_COUNT) % WORK_COUNT)
+    }
+
+    window.addEventListener('wheel', onWheel, { passive: false })
+    return () => window.removeEventListener('wheel', onWheel)
+  }, [carouselPhase])
+
   useEffect(() => {
     gsap.set(titleRef.current, { opacity: 0, y: 30 })
     const check = () => {
