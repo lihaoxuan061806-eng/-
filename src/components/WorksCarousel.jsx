@@ -340,17 +340,18 @@ export default function WorksCarousel({ activeIdx, onSelect, onPhaseChange }) {
 
       <div style={{ position: 'absolute', inset: 0, zIndex: 0, pointerEvents: 'none', background: 'radial-gradient(ellipse 85% 85% at 50% 50%, transparent 30%, rgba(0,0,0,0.88) 100%)' }} />
 
-      {phase >= 1 && (
-        <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', zIndex: 1, opacity: 1, transition: 'opacity 1s ease' }}>
-          <Canvas camera={{ position: [0, 0, 5], fov: 45 }}>
-            <ambientLight intensity={0.75} />
-            <directionalLight position={[0, 3, 6]} intensity={1.6} />
-            <directionalLight position={[-4, 2, 4]} intensity={0.8} color="#ffffff" />
-            <pointLight position={[0, 1.2, 3.5]} intensity={1.1} distance={8} />
-            <LHXCenter />
-          </Canvas>
-        </div>
-      )}
+      <div style={{
+        position: 'absolute', inset: 0, pointerEvents: 'none', zIndex: 1,
+        opacity: phase >= 1 ? 1 : 0, transition: 'opacity 1s ease',
+      }}>
+        <Canvas camera={{ position: [0, 0, 5], fov: 45 }}>
+          <ambientLight intensity={0.75} />
+          <directionalLight position={[0, 3, 6]} intensity={1.6} />
+          <directionalLight position={[-4, 2, 4]} intensity={0.8} color="#ffffff" />
+          <pointLight position={[0, 1.2, 3.5]} intensity={1.1} distance={8} />
+          <LHXCenter />
+        </Canvas>
+      </div>
 
       {phase === 1 && (
         <div style={{
