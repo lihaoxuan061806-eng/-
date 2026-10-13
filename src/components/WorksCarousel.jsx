@@ -130,6 +130,86 @@ function WorkPanel({ w, i, activeIdx, onOpen }) {
   )
 }
 
+const workFilters = [
+  { label: 'ALL', value: 'ALL' },
+  { label: 'APP DESIGN', value: 'APP DESIGN' },
+  { label: 'BRAND DESIGN', value: 'BRAND DESIGN' },
+  { label: 'PUBLICITY DESIGN', value: 'PUBLICITY DESIGN' },
+  { label: 'IP DESIGN', value: 'IP DESIGN' },
+  { label: 'HMI DESIGN', value: 'HMI DESIGN' },
+  { label: 'B-END DESIGN', value: 'B-END DESIGN' },
+]
+
+function WorkIndex({ activeIdx, onSelect, onOpen }) {
+  const [filter, setFilter] = useState('ALL')
+  const visibleWorks = filter === 'ALL' ? works : works.filter(w => w.cat === filter)
+
+  return (
+    <div className="work-index">
+      <div className="work-index-grid" />
+      <div className="work-index-glow" />
+      <div className="work-index-inner">
+        <header className="work-index-header">
+          <div>
+            <p className="work-index-kicker">Selected projects / 2025—2026</p>
+            <h1>Works</h1>
+          </div>
+          <p className="work-index-intro">Digital experiences, interfaces<br />and visual systems by LHX.</p>
+        </header>
+
+        <div className="work-index-filters" aria-label="作品筛选">
+          {workFilters.map(item => (
+            <button
+              key={item.value}
+              type="button"
+              className={filter === item.value ? 'is-active' : ''}
+              onClick={() => setFilter(item.value)}
+            >
+              {item.label} <sup>[{item.value === 'ALL' ? works.length : works.filter(w => w.cat === item.value).length}]</sup>
+            </button>
+          ))}
+        </div>
+
+        <div className="work-index-list">
+          {visibleWorks.map((work, index) => (
+            <article
+              key={work.id}
+              className={`work-index-item${activeIdx === work.id - 1 ? ' is-current' : ''}`}
+              onMouseEnter={() => onSelect(work.id - 1)}
+              onFocus={() => onSelect(work.id - 1)}
+              onClick={() => onOpen(work)}
+              tabIndex={0}
+              onKeyDown={event => { if (event.key === 'Enter' || event.key === ' ') onOpen(work) }}
+            >
+              <div className="work-index-meta">
+                <span>{String(index + 1).padStart(2, '0')}</span>
+                <span>{work.year}</span>
+                <span>{work.cat}</span>
+              </div>
+              <div className="work-index-media">
+                {work.img
+                  ? <img src={work.img} alt={work.title} loading={index > 1 ? 'lazy' : 'eager'} />
+                  : <div className="work-index-placeholder" style={{ background: work.bg }}>{String(work.id).padStart(2, '0')}</div>}
+                <div className="work-index-shade" />
+                <div className="work-index-hover-label">View project <span>↗</span></div>
+              </div>
+              <div className="work-index-title-row">
+                <h2>{work.title}</h2>
+                <span>{work.tags.join(' · ')}</span>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        <footer className="work-index-footer">
+          <span>End of selected works</span>
+          <span>Scroll to explore <b>↓</b></span>
+        </footer>
+      </div>
+    </div>
+  )
+}
+
 export default function WorksCarousel({ activeIdx, onSelect, onPhaseChange }) {
   const work = works[activeIdx]
   const [selected, setSelected] = useState(null)
@@ -377,42 +457,7 @@ export default function WorksCarousel({ activeIdx, onSelect, onPhaseChange }) {
         </div>
       )}
 
-      <div style={{
-        position: 'absolute', inset: 0, zIndex: 2,
-        display: 'flex', alignItems: 'center', justifyContent: 'center',
-        perspective: '1400px', perspectiveOrigin: '50% 55%',
-        opacity: phase >= 2 ? 1 : 0,
-        transition: 'opacity 1s ease',
-        pointerEvents: phase >= 2 ? 'auto' : 'none',
-      }}>
-        <div style={{ width: 0, height: 0, transformStyle: 'preserve-3d' }}>
-          {works.map((w, i) => (
-            <WorkPanel key={w.id} w={w} i={i} activeIdx={activeIdx} onOpen={setSelected} />
-          ))}
-        </div>
-      </div>
-
-      <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: '35%', background: 'linear-gradient(to top, rgba(255,255,255,0.03) 0%, transparent 100%)', pointerEvents: 'none', zIndex: 2 }} />
-
-      {phase >= 2 && (
-        <div style={{ position: 'absolute', bottom: '3rem', left: '8vw', pointerEvents: 'none', zIndex: 3 }}>
-          <p className="meta" style={{ marginBottom: '0.5rem' }}>{work.cat} {work.year}</p>
-          <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: 'clamp(1.5rem,3vw,3rem)', fontWeight: 900 }}>{work.title}</h2>
-          <div style={{ display: 'flex', gap: '0.5rem', marginTop: '0.8rem', flexWrap: 'wrap' }}>
-            {work.tags.map(t => (
-              <span key={t} style={{ fontSize: '0.55rem', letterSpacing: '0.12em', textTransform: 'uppercase', padding: '0.25rem 0.6rem', border: '1px solid rgba(255,255,255,0.2)', color: 'rgba(255,255,255,0.5)' }}>{t}</span>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {phase >= 2 && (
-        <div style={{ position: 'absolute', bottom: '3.2rem', right: '8vw', display: 'flex', gap: '0.5rem', alignItems: 'center', zIndex: 3 }}>
-          {works.map((_, i) => (
-            <div key={i} style={{ width: i === activeIdx ? 20 : 6, height: 6, borderRadius: 3, background: i === activeIdx ? '#fff' : 'rgba(255,255,255,0.3)', transition: 'all 0.3s' }} />
-          ))}
-        </div>
-      )}
+      {phase >= 2 && <WorkIndex activeIdx={activeIdx} onSelect={onSelect} onOpen={setSelected} />}
 
       {selected && <WorkDetail work={selected} onClose={() => setSelected(null)} />}
     </div>
