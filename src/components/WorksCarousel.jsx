@@ -50,11 +50,11 @@ function getCardStyle(i, activeIdx) {
   const diff = ((i - activeIdx + N) % N)
   const d = diff > N / 2 ? diff - N : diff
   const configs = {
-    '-2': { x: -1050, z: -360, ry: 62,  rx: 3,  scale: 0.45, opacity: 0.1, blur: 2.2, brightness: 0.62, saturate: 0.72 },
-    '-1': { x: -690,  z: -220, ry: 48,  rx: 2,  scale: 0.59, opacity: 0.68, blur: 0.35, brightness: 0.78, saturate: 0.86 },
-    '0':  { x: 0,     z: 0,    ry: 0,   rx: 0,  scale: 1,    opacity: 1,    blur: 0,    brightness: 1,    saturate: 1 },
-    '1':  { x: 690,   z: -220, ry: -48, rx: 2,  scale: 0.59, opacity: 0.68, blur: 0.35, brightness: 0.78, saturate: 0.86 },
-    '2':  { x: 1050,  z: -360, ry: -62, rx: 3,  scale: 0.45, opacity: 0.1, blur: 2.2, brightness: 0.62, saturate: 0.72 },
+    '-2': { x: -1050, z: -360, ry: 62,  rx: 3,  scale: 0.45, opacity: 0.1, shade: 0.5 },
+    '-1': { x: -690,  z: -220, ry: 48,  rx: 2,  scale: 0.59, opacity: 0.68, shade: 0.26 },
+    '0':  { x: 0,     z: 0,    ry: 0,   rx: 0,  scale: 1,    opacity: 1,    shade: 0 },
+    '1':  { x: 690,   z: -220, ry: -48, rx: 2,  scale: 0.59, opacity: 0.68, shade: 0.26 },
+    '2':  { x: 1050,  z: -360, ry: -62, rx: 3,  scale: 0.45, opacity: 0.1, shade: 0.5 },
   }
   return { ...configs[Math.max(-2, Math.min(2, d)).toString()] || configs['-2'], distance: d }
 }
@@ -63,15 +63,14 @@ function WorkPanel({ w, i, activeIdx, onOpen }) {
   const mockupRef = useRef()
   const panelRef = useRef()
   const isActive = i === activeIdx
-  const { x, z, ry, rx, scale, opacity, blur, brightness, saturate, distance } = getCardStyle(i, activeIdx)
+  const { x, z, ry, rx, scale, opacity, shade, distance } = getCardStyle(i, activeIdx)
   const mockupWidth = w.id === 3 ? '88%' : [5, 6].includes(w.id) ? '38%' : '55%'
   const activePanelShadow = '0 34px 130px rgba(0,0,0,0.88), 0 0 130px rgba(255,255,255,0.18), 0 0 48px rgba(255,255,255,0.16), inset 0 1.5px 0 rgba(255,255,255,0.62), inset 0 -1px 0 rgba(255,255,255,0.16)'
   const hoverPanelShadow = '0 44px 190px rgba(0,0,0,0.96), 0 24px 100px rgba(0,0,0,0.88), 0 0 150px rgba(255,255,255,0.26), 0 0 0 1px rgba(255,255,255,0.26), inset 0 2px 0 rgba(255,255,255,0.74), inset 0 -18px 50px rgba(0,0,0,0.72)'
-  const inactivePanelShadow = '0 18px 54px rgba(0,0,0,0.72), 0 0 34px rgba(255,255,255,0.08), inset 0 1px 0 rgba(255,255,255,0.34)'
+  const inactivePanelShadow = '0 18px 54px rgba(0,0,0,0.72), inset 0 1px 0 rgba(255,255,255,0.34)'
   const scaledX = x * Math.min(1, Math.max(0.58, (typeof window === 'undefined' ? 1280 : window.innerWidth) / 1280))
   const xTransform = scaledX < 0 ? `calc(-50% - ${Math.abs(scaledX)}px)` : `calc(-50% + ${scaledX}px)`
   const edgeLight = distance < 0 ? 'linear-gradient(104deg, rgba(255,255,255,0.58), transparent 22%, transparent 72%, rgba(50,140,255,0.16))' : distance > 0 ? 'linear-gradient(256deg, rgba(255,255,255,0.58), transparent 22%, transparent 72%, rgba(255,70,180,0.12))' : 'linear-gradient(100deg, rgba(255,255,255,0.64), transparent 27%, transparent 70%, rgba(255,255,255,0.22))'
-  const imageFilter = `brightness(${brightness}) saturate(${saturate}) contrast(${isActive ? 1.08 : 0.98}) blur(${blur}px)`
 
   useEffect(() => {
     if (mockupRef.current) gsap.set(mockupRef.current, { opacity: 0, scale: 0.6, xPercent: -50, yPercent: -50 })
@@ -97,9 +96,8 @@ function WorkPanel({ w, i, activeIdx, onOpen }) {
       position: 'absolute', left: '50%', top: '50%', width: 'min(760px, 76vw)', aspectRatio: '760 / 460',
       transform: `translate3d(${xTransform}, -50%, ${z}px) rotateX(${rx}deg) rotateY(${ry}deg) scale(${scale})`,
       opacity, zIndex: isActive ? 12 : 8 - Math.abs(distance),
-      filter: `blur(${blur}px)`,
-      transition: 'transform 1.18s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.95s ease, filter 1.05s ease',
-      transformStyle: 'preserve-3d', willChange: 'transform, opacity, filter',
+      transition: 'transform 1.04s cubic-bezier(0.22, 0.61, 0.36, 1), opacity 0.9s ease',
+      transformStyle: 'preserve-3d', backfaceVisibility: 'hidden', willChange: 'transform, opacity',
     }}>
       <div ref={panelRef} onClick={() => isActive && onOpen(w)}
         onMouseEnter={handleEnter} onMouseLeave={handleLeave}
@@ -108,21 +106,20 @@ function WorkPanel({ w, i, activeIdx, onOpen }) {
           cursor: isActive ? 'none' : 'default',
           borderRadius: '14px', overflow: 'hidden',
           background: w.img ? '#080a0d' : w.bg,
-          backdropFilter: 'blur(4px)',
-          WebkitBackdropFilter: 'blur(4px)',
           border: isActive ? '1px solid rgba(255,255,255,0.64)' : '1px solid rgba(255,255,255,0.24)',
           boxShadow: isActive ? activePanelShadow : inactivePanelShadow,
           isolation: 'isolate', transformStyle: 'preserve-3d', backfaceVisibility: 'hidden',
-          transition: 'box-shadow 0.7s, border-color 0.7s, transform 0.7s cubic-bezier(0.16,1,0.3,1)',
+          transition: 'border-color 0.28s ease, transform 0.45s cubic-bezier(0.16,1,0.3,1)',
         }}>
         {w.img
-          ? <img src={w.img} alt={w.title} style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top', display: 'block', filter: imageFilter, transform: `scale(${isActive ? 1.025 : 1.045})`, transition: 'filter 1s ease, transform 1.2s cubic-bezier(0.16,1,0.3,1)' }} />
+          ? <img src={w.img} alt={w.title} style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top', display: 'block', filter: isActive ? 'saturate(0.98) contrast(1.03)' : 'none', transform: `scale(${isActive ? 1.025 : 1.045})`, transition: 'transform 1.04s cubic-bezier(0.22,0.61,0.36,1)' }} />
           : <div style={{ width: '100%', height: '100%', background: w.bg, display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'var(--font-serif)', fontSize: '5rem', fontWeight: 900, color: 'rgba(255,255,255,0.05)' }}>
               {String(w.id).padStart(2, '0')}
             </div>
         }
-        <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', mixBlendMode: 'screen', opacity: isActive ? 0.82 : 0.42, background: edgeLight, transition: 'opacity 0.9s ease, background 1s ease' }} />
-        <div style={{ position: 'absolute', inset: '-30% -15%', pointerEvents: 'none', opacity: isActive ? 0.72 : 0.3, transform: `translateX(${distance * 9}%) rotate(-12deg)`, background: 'linear-gradient(105deg, transparent 34%, rgba(255,255,255,0.32) 48%, rgba(170,220,255,0.08) 53%, transparent 66%)', mixBlendMode: 'screen', transition: 'transform 1.15s cubic-bezier(0.16,1,0.3,1), opacity 0.8s ease' }} />
+        <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', mixBlendMode: 'screen', opacity: isActive ? 0.82 : 0.42, background: edgeLight, transition: 'opacity 0.7s ease, background 0.7s ease' }} />
+        <div style={{ position: 'absolute', inset: '-30% -15%', pointerEvents: 'none', opacity: isActive ? 0.62 : 0.2, transform: `translateX(${distance * 9}%) rotate(-12deg)`, background: 'linear-gradient(105deg, transparent 34%, rgba(255,255,255,0.26) 48%, rgba(170,220,255,0.06) 53%, transparent 66%)', mixBlendMode: 'screen', transition: 'transform 1.04s cubic-bezier(0.22,0.61,0.36,1), opacity 0.7s ease' }} />
+        <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', background: 'rgba(0,0,0,1)', opacity: shade, transition: 'opacity 0.72s ease' }} />
         <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', borderRadius: '14px', boxShadow: 'inset 0 0 38px 7px rgba(0,0,0,0.82), inset 0 -62px 82px rgba(0,0,0,0.46), inset 0 1px 0 rgba(255,255,255,0.38)' }} />
         <div className="panel-overlay" style={{ position: 'absolute', inset: 0, opacity: 0, background: 'linear-gradient(to bottom, rgba(0,0,0,0.16) 0%, rgba(0,0,0,0.36) 52%, rgba(0,0,0,0.76) 100%), radial-gradient(ellipse at center, rgba(255,255,255,0.06) 0%, rgba(0,0,0,0.48) 72%, rgba(0,0,0,0.72) 100%)', transition: 'opacity 0.5s ease', pointerEvents: 'none' }} />
       </div>
@@ -406,18 +403,20 @@ export default function WorksCarousel({ activeIdx, onSelect, onPhaseChange }) {
         position: 'absolute', inset: 0, zIndex: 1, pointerEvents: 'none',
         background: 'radial-gradient(ellipse 44% 58% at 49% 47%, rgba(255,255,255,0.11), transparent 70%), radial-gradient(ellipse 32% 54% at 15% 48%, rgba(10,90,124,0.16), transparent 76%), radial-gradient(ellipse 34% 52% at 86% 48%, rgba(94,20,104,0.16), transparent 76%), linear-gradient(180deg, rgba(0,0,0,0.02), rgba(0,0,0,0.82) 100%)',
       }} />
-      <div className="works-beams-backdrop">
-        <Beams
-          beamWidth={1.85}
-          beamHeight={18}
-          beamNumber={14}
-          lightColor="#f2f2f2"
-          speed={1.45}
-          noiseIntensity={1.35}
-          scale={0.18}
-          rotation={-22}
-        />
-      </div>
+      {phase < 2 && (
+        <div className="works-beams-backdrop">
+          <Beams
+            beamWidth={1.85}
+            beamHeight={18}
+            beamNumber={10}
+            lightColor="#f2f2f2"
+            speed={1.2}
+            noiseIntensity={1.1}
+            scale={0.18}
+            rotation={-22}
+          />
+        </div>
+      )}
       <canvas ref={lhxCanvasRef} style={{
         position: 'absolute', inset: 0, zIndex: 10,
         width: '100%', height: '100%',
@@ -439,18 +438,20 @@ export default function WorksCarousel({ activeIdx, onSelect, onPhaseChange }) {
 
       <div style={{ position: 'absolute', inset: 0, zIndex: 0, pointerEvents: 'none', background: 'radial-gradient(ellipse 85% 85% at 50% 50%, transparent 30%, rgba(0,0,0,0.88) 100%)' }} />
 
-      <div style={{
-        position: 'absolute', inset: 0, pointerEvents: 'none', zIndex: 1,
-        opacity: phase >= 1 ? 1 : 0, transition: 'opacity 1s ease',
-      }}>
-        <Canvas camera={{ position: [0, 0, 5], fov: 45 }}>
-          <ambientLight intensity={0.75} />
-          <directionalLight position={[0, 3, 6]} intensity={1.6} />
-          <directionalLight position={[-4, 2, 4]} intensity={0.8} color="#ffffff" />
-          <pointLight position={[0, 1.2, 3.5]} intensity={1.1} distance={8} />
-          <LHXCenter />
-        </Canvas>
-      </div>
+      {phase === 1 && (
+        <div style={{
+          position: 'absolute', inset: 0, pointerEvents: 'none', zIndex: 1,
+          opacity: 1, transition: 'opacity 1s ease',
+        }}>
+          <Canvas camera={{ position: [0, 0, 5], fov: 45 }} dpr={[1, 1.5]}>
+            <ambientLight intensity={0.75} />
+            <directionalLight position={[0, 3, 6]} intensity={1.6} />
+            <directionalLight position={[-4, 2, 4]} intensity={0.8} color="#ffffff" />
+            <pointLight position={[0, 1.2, 3.5]} intensity={1.1} distance={8} />
+            <LHXCenter />
+          </Canvas>
+        </div>
+      )}
 
       {phase === 1 && (
         <div style={{

@@ -119,7 +119,7 @@ export default function Works() {
   const [carouselPhase, setCarouselPhase] = useState(0)
   const titleRef = useRef()
   const heroRef = useRef()
-  const cooldown = useRef(false)
+  const wheelLockUntil = useRef(0)
 
   useEffect(() => {
     const onWheel = (e) => {
@@ -128,10 +128,11 @@ export default function Works() {
       if (rect.bottom <= 0 || rect.top >= window.innerHeight) return
 
       e.preventDefault()
-      if (cooldown.current) return
+      if (Math.abs(e.deltaY) < 4 || performance.now() < wheelLockUntil.current) return
 
-      cooldown.current = true
-      window.setTimeout(() => { cooldown.current = false }, 700)
+      // Keep the wheel lock aligned with the card transition so a second
+      // event cannot interrupt the 3D rotation halfway through.
+      wheelLockUntil.current = performance.now() + 1080
       const direction = e.deltaY > 0 ? 1 : -1
       setActiveIdx(i => (i + direction + WORK_COUNT) % WORK_COUNT)
     }
