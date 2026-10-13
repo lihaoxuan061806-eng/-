@@ -34,7 +34,7 @@ function LHXCenter() {
     if (groupRef.current) groupRef.current.rotation.y += delta * 0.4
   })
   return (
-    <group ref={groupRef} position={[0.15, 0, 0]}>
+    <group ref={groupRef}>
       <Center>
         <Text3D font="/helvetiker_bold.typeface.json" size={0.82} height={0.22}
           bevelEnabled bevelThickness={0.01} bevelSize={0.008} bevelSegments={3}>
