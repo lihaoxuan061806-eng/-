@@ -391,7 +391,7 @@ export default function WorksCarousel({ activeIdx, onSelect, onPhaseChange }) {
   }, [phase])
 
   return (
-    <div style={{ width: '100%', height: '100%', position: 'relative', background: '#000' }}>
+    <div className="works-scene" style={{ width: '100%', height: '100%', position: 'relative' }}>
       <div style={{
         position: 'absolute', inset: '-12%', zIndex: 1, pointerEvents: 'none', opacity: 0.5,
         transform: 'perspective(900px) rotateX(4deg) scale(1.06)',

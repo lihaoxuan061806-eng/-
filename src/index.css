@@ -459,3 +459,17 @@ nav ul li a:hover::after { width: 100%; }
   transform: translateX(4px);
 }
 
+
+/* Keep the Works atmosphere visible while the 3D layer is initializing. */
+.works-scene {
+  isolation: isolate;
+  overflow: hidden;
+  background:
+    linear-gradient(rgba(108, 139, 153, 0.075) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(108, 139, 153, 0.075) 1px, transparent 1px),
+    radial-gradient(ellipse 52% 72% at 50% 46%, rgba(30, 57, 75, 0.45), transparent 72%),
+    radial-gradient(ellipse 38% 70% at 10% 50%, rgba(8, 73, 100, 0.2), transparent 76%),
+    radial-gradient(ellipse 38% 70% at 90% 50%, rgba(77, 25, 92, 0.18), transparent 76%),
+    linear-gradient(180deg, #05080c 0%, #020305 100%);
+  background-size: 88px 88px, 88px 88px, auto, auto, auto, auto;
+}

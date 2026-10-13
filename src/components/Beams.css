@@ -11,7 +11,11 @@
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  background: #000;
+  background:
+    radial-gradient(ellipse 58% 64% at 50% 48%, rgba(29, 53, 70, 0.42), transparent 70%),
+    radial-gradient(ellipse 42% 70% at 14% 50%, rgba(10, 73, 99, 0.24), transparent 76%),
+    radial-gradient(ellipse 42% 70% at 86% 50%, rgba(71, 25, 86, 0.22), transparent 76%),
+    linear-gradient(180deg, #05080c 0%, #020305 100%);
   overflow: hidden;
 }
 
