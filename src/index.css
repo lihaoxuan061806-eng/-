@@ -1,4 +1,4 @@
-﻿*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
   --black: #000;
@@ -196,13 +196,14 @@ nav ul li a:hover::after { width: 100%; }
 }
 .loading-kicker { margin-bottom: clamp(1.2rem,3vh,2.4rem); }
 .loading-logo {
-  max-width: 100%; color: #f0efec;
+  max-width: 100%; overflow: hidden; color: #f0efec;
   font-family: Georgia, 'Times New Roman', 'Songti SC', 'STSong', serif;
-  font-size: clamp(6rem,20vw,17rem); font-weight: 900;
-  line-height: 0.78; letter-spacing: 0.08em; text-align: center;
+  font-size: clamp(3.4rem,14vw,12rem); font-weight: 900;
+  line-height: 0.92; letter-spacing: 0; text-align: center;
   text-shadow: 0 0 80px rgba(210,196,171,0.12);
   white-space: nowrap;
 }
+.loading-char { display: inline-block; }
 .loading-caption { margin-top: clamp(1.5rem,4vh,3rem); }
 .loading-progress {
   width: 100%; padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.15);
@@ -226,7 +227,7 @@ nav ul li a:hover::after { width: 100%; }
 @media (max-width: 600px) {
   .loading-topline { align-items: flex-start; font-size: 0.52rem; letter-spacing: 0.1em; }
   .loading-edition { text-align: right; }
-  .loading-logo { font-size: clamp(5.4rem,25vw,9rem); }
+  .loading-logo { font-size: clamp(3.2rem,14vw,5.2rem); }
   .loading-kicker, .loading-caption { font-size: 0.5rem; letter-spacing: 0.16em; }
 }
 

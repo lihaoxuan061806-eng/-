@@ -13,15 +13,23 @@ export default function Loader({ onDone }) {
     const tl = gsap.timeline({ onComplete: onDone })
 
     gsap.set(barRef.current, { scaleX: 0 })
-    gsap.set([logoRef.current, numRef.current, railRef.current], { opacity: 0, y: 18 })
+    const chars = logoRef.current.querySelectorAll('.loading-char')
+    gsap.set([numRef.current, railRef.current], { opacity: 0, y: 18 })
+    gsap.set(logoRef.current, { opacity: 1, y: 0 })
 
-    tl.to([logoRef.current, numRef.current, railRef.current], {
+    tl.to([numRef.current, railRef.current], {
       opacity: 1,
       y: 0,
       duration: 0.55,
       stagger: 0.08,
       ease: 'power3.out',
     })
+      .from(chars, {
+        yPercent: 500,
+        duration: 0.65,
+        stagger: { each: 0.08, from: 'center' },
+        ease: 'power4.out',
+      }, 0)
       .to(counter, {
         value: 100,
         duration: 1.9,
@@ -41,7 +49,7 @@ export default function Loader({ onDone }) {
         duration: 0.55,
         ease: 'power2.out',
       }, '-=0.25')
-      .to([logoRef.current, numRef.current, railRef.current], {
+      .to([numRef.current, railRef.current], {
         opacity: 0,
         y: -18,
         duration: 0.42,
@@ -68,7 +76,11 @@ export default function Loader({ onDone }) {
 
       <main className="loading-center">
         <span className="loading-kicker">VISUAL DESIGNER</span>
-        <div ref={logoRef} className="loading-logo">LHX</div>
+        <h1 ref={logoRef} className="loading-logo" aria-label="Portfolio">
+          {Array.from("Portfolio").map((char, index) => (
+            <span key={index} className="loading-char">{char}</span>
+          ))}
+        </h1>
         <span className="loading-caption">A PORTFOLIO BY LI HAOXUAN</span>
       </main>
 
