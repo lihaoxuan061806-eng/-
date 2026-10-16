@@ -8,17 +8,7 @@ import Beams from './Beams'
 import LocalChromeMaterial from './LocalChromeMaterial'
 
 const works = [
-  { id: 1, title: 'APP 设计', cat: 'APP DESIGN', year: '2026', bg: '#1a0505', img: '/work-1.jpg', mockup: '/mockup.png', tags: ['页面落地', 'UI图标', '界面规范'],
-    screens: [
-      { label: '国际市场', bg: '#6b1a1a' },
-      { label: 'Beijing China', bg: '#2a1a0a' },
-      { label: 'Mount Fuji', bg: '#0a1a2a' },
-      { label: 'London · Andes · Istanbul', bg: '#1a1a2a' },
-      { label: 'Ao Nang Thailand', bg: '#0a2a1a' },
-      { label: 'Standard Ticket', bg: '#1a0a0a' },
-      { label: 'Rome · Tokyo', bg: '#0a0a1a' },
-    ]
-  },
+  { id: 1, title: 'APP 设计', cat: 'APP DESIGN', year: '2026', bg: '#1a0505', img: '/app-design-thumb.webp', detailImg: '/app-design-detail.webp', tags: ['旅行产品', '移动端体验', '视觉规范'] },
   { id: 2, title: '品牌设计', cat: 'BRAND DESIGN', year: '2025', bg: '#0a0a14', img: '/work-2.jpg', mockup: '/brand-mockup.png', tags: ['品牌Logo', '品牌延展', '品牌规范'] },
   { id: 3, title: '活动宣传设计', cat: 'PUBLICITY DESIGN', year: '2025', bg: '#0a0d0a', img: '/h5-publicity.png', mockup: '/h5-publicity-mockup.png', tags: ['H5设计', '海报设计', '场景建模'] },
   { id: 4, title: 'IP 设计', cat: 'IP DESIGN', year: '2025', bg: '#0f0a0f', img: '/ip-design.png', mockup: '/ip-mockup.png', tags: ['形象设计', '营销海报', '人物周边'] },

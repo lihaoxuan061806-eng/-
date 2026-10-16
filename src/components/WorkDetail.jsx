@@ -2,23 +2,11 @@
 import { createPortal } from 'react-dom'
 import { gsap } from 'gsap'
 
-function ScreenCard({ src, index }) {
-  const ref = useRef()
-  return (
-    <div ref={ref}
-      style={{ borderRadius: '8px', overflow: 'hidden', cursor: 'none', border: '1px solid rgba(255,255,255,0.08)' }}
-    >
-      <img src={src} alt={`screen-${index}`} style={{ width: '100%', height: 'auto', display: 'block' }} />
-    </div>
-  )
-}
-
 export default function WorkDetail({ work, onClose }) {
   const overlayRef = useRef()
   const headerRef = useRef()
   const imgRef = useRef()
   const tagsRef = useRef()
-  const screensRef = useRef()
 
   useEffect(() => {
     document.body.style.overflow = 'hidden'
@@ -29,10 +17,6 @@ export default function WorkDetail({ work, onClose }) {
     if (tagsRef.current) {
       gsap.fromTo(Array.from(tagsRef.current.children), { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, delay: 0.6, stagger: 0.07, ease: 'power2.out' })
     }
-    if (screensRef.current) {
-      gsap.fromTo(Array.from(screensRef.current.children), { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, delay: 0.75, stagger: 0.06, ease: 'power3.out' })
-    }
-
     const onKey = (e) => { if (e.key === 'Escape') handleClose() }
     window.addEventListener('keydown', onKey)
     return () => { window.removeEventListener('keydown', onKey); document.body.style.overflow = '' }
@@ -90,17 +74,6 @@ export default function WorkDetail({ work, onClose }) {
           ))}
         </div>
 
-        {work.id === 1 && (
-          <div ref={screensRef} style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(3, 1fr)',
-            gap: '1rem', marginTop: '3rem',
-          }}>
-            {Array.from({length: 13}, (_, i) => (
-              <ScreenCard key={i} src={`/work-1-${i+1}.png`} index={i+1} />
-            ))}
-          </div>
-        )}
       </div>
     </div>
   , document.body)
