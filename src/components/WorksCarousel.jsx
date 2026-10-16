@@ -8,7 +8,7 @@ import Beams from './Beams'
 import LocalChromeMaterial from './LocalChromeMaterial'
 
 const works = [
-  { id: 1, title: 'APP 设计', cat: 'APP DESIGN', year: '2026', bg: '#1a0505', img: '/app-design-thumb.webp', detailImg: '/app-design-detail.webp', tags: ['旅行产品', '移动端体验', '视觉规范'] },
+  { id: 1, title: 'APP 设计', cat: 'APP DESIGN', year: '2026', bg: '#1a0505', img: '/app-design-thumb.webp', mockup: '/app-design-popup.png', detailImg: '/app-design-detail.webp', tags: ['旅行产品', '移动端体验', '视觉规范'] },
   { id: 2, title: '品牌设计', cat: 'BRAND DESIGN', year: '2025', bg: '#0a0a14', img: '/work-2.jpg', mockup: '/brand-mockup.png', tags: ['品牌Logo', '品牌延展', '品牌规范'] },
   { id: 3, title: '活动宣传设计', cat: 'PUBLICITY DESIGN', year: '2025', bg: '#0a0d0a', img: '/h5-publicity.png', mockup: '/h5-publicity-mockup.png', tags: ['H5设计', '海报设计', '场景建模'] },
   { id: 4, title: 'IP 设计', cat: 'IP DESIGN', year: '2025', bg: '#0f0a0f', img: '/ip-design.png', mockup: '/ip-mockup.png', tags: ['形象设计', '营销海报', '人物周边'] },
